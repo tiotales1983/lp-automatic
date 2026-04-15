@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automatic - Cuidado Premium para o seu Veículo</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- CSS VARIABLES & RESET --- */
+        :root {
+            --primary-red: #E32626;
+            --dark-bg: #0F1328;
+            --card-bg: #1A1F3C;
+            --text-white: #FFFFFF;
+            --text-gray: #A0A5B8;
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        ul { list-style: none; }
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; border-radius: 12px; }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-weight: 700;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            transition: var(--transition);
+            border: none;
+        }
+
+        .btn-red {
+            background-color: var(--primary-red);
+            color: white;
+        }
+
+        .btn-red:hover {
+            background-color: #c21d1d;
+            transform: translateY(-2px);
+        }
+
+        .btn-outline {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: white;
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* --- HEADER --- */
+        header {
+            padding: 20px 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            background: rgba(15, 19, 40, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: -1px;
+        }
+
+        .logo span:first-child {
+            background: var(--primary-red);
+            width: 35px;
+            height: 35px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 6px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            font-size: 0.9rem;
+            font-weight: 600;
+            opacity: 0.8;
+            transition: var(--transition);
+        }
+
+        .nav-links a:hover { opacity: 1; color: var(--primary-red); }
+
+        .header-cta .btn {
+            padding: 10px 20px;
+            font-size: 0.85rem;
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            padding: 180px 0 100px;
+            position: relative;
+            background: radial-gradient(circle at 70% 50%, rgba(227, 38, 38, 0.05) 0%, transparent 50%);
+        }
+
+        .hero-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            gap: 60px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: rgba(227, 38, 38, 0.1);
+            color: var(--primary-red);
+            padding: 6px 14px;
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            line-height: 1.1;
+            margin-bottom: 25px;
+            font-weight: 800;
+        }
+
+        .hero h1 span { color: var(--primary-red); }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--text-gray);
+            margin-bottom: 40px;
+            max-width: 500px;
+        }
+
+        .hero-btns {
+            display: flex;
+            gap: 20px;
+        }
+
+        .hero-image-container { position: relative; }
+
+        .satisfaction-badge {
+            position: absolute;
+            top: 20px;
+            right: -10px;
+            background: rgba(26, 31, 60, 0.9);
+            padding: 15px 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            backdrop-filter: blur(5px);
+            z-index: 5;
+        }
+
+        .satisfaction-badge .icon {
+            color: #4ade80;
+            font-size: 1.5rem;
+        }
+
+        .satisfaction-badge span {
+            display: block;
+            font-size: 0.7rem;
+            color: var(--text-gray);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .satisfaction-badge strong { font-size: 1.3rem; }
+
+        /* --- BRAND CAROUSEL --- */
+        .brands {
+            padding: 50px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            overflow: hidden;
+        }
+
+        .brand-track {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            gap: 60px;
+            opacity: 0.4;
+        }
+
+        .brand-track span {
+            font-weight: 800;
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+        }
+
+        /* --- FEATURES SECTION --- */
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding-top: 100px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+
+        .section-header h2 span { color: var(--primary-red); }
+
+        .section-header p {
+            color: var(--text-gray);
+            max-width: 600px;
+            margin: 15px auto 0;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 100px;
+        }
+
+        .feature-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(227, 38, 38, 0.3);
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(227, 38, 38, 0.1);
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            font-size: 1.2rem;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            font-size: 1.25rem;
+        }
+
+        .feature-card p {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+        }
+
+        /* --- ELECTRIC SECTION --- */
+        .electric-section {
+            padding: 80px 0;
+        }
+
+        .electric-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 40px;
+            align-items: stretch;
+        }
+
+        .electric-content {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .info-box {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            flex: 1;
+        }
+
+        .electric-image {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            height: 450px;
+        }
+
+        .electric-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .image-overlay-text {
+            position: absolute;
+            bottom: 40px;
+            left: 40px;
+            z-index: 5;
+        }
+
+        .image-overlay-text h3 { font-size: 1.8rem; margin-bottom: 5px; }
+
+        .electric-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60%;
+            background: linear-gradient(to top, rgba(15, 19, 40, 0.9), transparent);
+        }
+
+        /* --- STRUCTURE SECTION --- */
+        .structure-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            padding: 100px 0;
+        }
+
+        .structure-images {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .structure-images img:first-child { grid-column: span 2; }
+
+        .structure-list {
+            margin: 30px 0;
+            display: grid;
+            gap: 15px;
+        }
+
+        .structure-list li {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+        }
+
+        .structure-list li i { color: var(--primary-red); }
+
+        /* --- TESTIMONIALS --- */
+        .testimonials {
+            background: rgba(15, 19, 40, 0.5);
+            padding: 100px 0;
+        }
+
+        .stars { color: #facc15; font-size: 1.2rem; margin-bottom: 10px; }
+        .rating-text { color: var(--text-gray); font-size: 0.9rem; margin-bottom: 50px; }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .testimonial-card {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .testimonial-card i.quote {
+            position: absolute;
+            top: -20px;
+            left: 30px;
+            background: var(--primary-red);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 0.9rem;
+        }
+
+        .testimonial-text { margin-bottom: 30px; font-style: italic; }
+        .author-info h4 { font-size: 1.1rem; }
+        .author-info p { color: var(--primary-red); font-size: 0.8rem; font-weight: 700; text-transform: uppercase; }
+
+        /* --- CONTACT SECTION --- */
+        .contact { padding: 100px 0; }
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .contact-info { display: flex; flex-direction: column; gap: 30px; margin-top: 40px; }
+        .contact-item { display: flex; gap: 20px; align-items: flex-start; }
+        .contact-item .icon {
+            width: 50px;
+            height: 50px;
+            background: rgba(227, 38, 38, 0.1);
+            color: var(--primary-red);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            flex-shrink: 0;
+        }
+
+        .contact-item h5 { font-size: 1.1rem; margin-bottom: 5px; }
+        .contact-item p { color: var(--text-gray); }
+
+        .map-container {
+            height: 500px;
+            border-radius: 30px;
+            overflow: hidden;
+            border: 5px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* --- WHATSAPP FLOAT --- */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #25D366;
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            box-shadow: 0 10px 25px rgba(37, 211, 102, 0.3);
+            z-index: 999;
+            transition: var(--transition);
+        }
+
+        .whatsapp-float:hover { transform: scale(1.1); }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 1024px) {
+            .hero-grid, .features-grid, .electric-grid, .structure-grid, .testimonial-grid, .contact-grid {
+                grid-template-columns: 1fr;
+            }
+            .hero h1 { font-size: 3rem; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container">
+            <nav>
+                <div class="logo">
+                    <span>A</span> AUTOMATIC
+                </div>
+                <ul class="nav-links">
+                    <li><a href="#inicio">Início</a></li>
+                    <li><a href="#premium">Premium</a></li>
+                    <li><a href="#eletricos">Elétricos</a></li>
+                    <li><a href="#estrutura">Estrutura</a></li>
+                    <li><a href="#depoimentos">Depoimentos</a></li>
+                </ul>
+                <div class="header-cta">
+                    <button class="btn btn-red">Agendar Agora</button>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero" id="inicio">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="hero-badge"><i class="fas fa-star"></i> REFERÊNCIA EM FLORIANÓPOLIS</span>
+                    <h1>Cuidado <span>Premium</span> para o seu Veículo.</h1>
+                    <p>A maior estrutura da Grande Florianópolis especializada em veículos premium, elétricos e híbridos. Tecnologia de ponta e equipe certificada.</p>
+                    <div class="hero-btns">
+                        <button class="btn btn-red"><i class="fab fa-whatsapp"></i> Agendar via WhatsApp</button>
+                        <button class="btn btn-outline">Ver Serviços</button>
+                    </div>
+                </div>
+                <div class="hero-image-container">
+                    <div class="satisfaction-badge">
+                        <div class="icon"><i class="fas fa-check-circle"></i></div>
+                        <div>
+                            <span>Satisfação</span>
+                            <strong>99.8%</strong>
+                        </div>
+                    </div>
+                    <!-- Using Tesla Roadster placeholder -->
+                    <img src="https://images.unsplash.com/photo-1560958089-b8a1929cea89?auto=format&fit=crop&q=80&w=1000" alt="Veículo Premium">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BRANDS -->
+    <div class="brands">
+        <div class="container">
+            <div class="brand-track">
+                <span>AUDI</span>
+                <span>MERCEDES</span>
+                <span>PORSCHE</span>
+                <span>VOLVO</span>
+                <span>BYD</span>
+                <span>LAND ROVER</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- FEATURES -->
+    <section class="features" id="premium">
+        <div class="container">
+            <div class="section-header">
+                <h2>Especialistas em <span>Premium</span></h2>
+                <p>Atendimento exclusivo para marcas que exigem o mais alto padrão de precisão e conhecimento técnico.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-microchip"></i></div>
+                    <h3>Diagnóstico Avançado</h3>
+                    <p>Utilizamos scanners originais das principais montadoras alemãs e italianas.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-wrench"></i></div>
+                    <h3>Peças Genuínas</h3>
+                    <p>Trabalhamos apenas com componentes originais ou de performance certificada.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Garantia Estendida</h3>
+                    <p>Nossos serviços contam com garantia total, assegurando sua tranquilidade.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-certificate"></i></div>
+                    <h3>Equipe Certificada</h3>
+                    <p>Profissionais treinados e atualizados constantemente pelas montadoras.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-comment-alt"></i></div>
+                    <h3>Transparência Total</h3>
+                    <p>Orçamentos detalhados e acompanhamento do serviço via fotos e vídeos.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon"><i class="fas fa-car-side"></i></div>
+                    <h3>Estética de Luxo</h3>
+                    <p>Serviços de detalhamento e proteção de pintura com produtos de alto nível.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ELECTRIC / HYBRID -->
+    <section class="electric-section" id="eletricos">
+        <div class="container">
+            <div class="section-header" style="text-align: left; padding: 0;">
+                <h2 style="font-size: 3.5rem;">Líderes em</h2>
+            </div>
+            <div class="electric-grid">
+                <div class="electric-content">
+                    <div class="info-box">
+                        <h3 style="margin-bottom: 10px;">Híbridos</h3>
+                        <p style="color: var(--text-gray);">Sincronização perfeita entre motores a combustão e sistemas elétricos complexos.</p>
+                    </div>
+                    <div class="info-box" style="background: rgba(227, 38, 38, 0.05); border: 1px solid rgba(227, 38, 38, 0.2);">
+                        <p>Manutenção preventiva de baterias, sistemas de tração e inversores de alta tensão.</p>
+                    </div>
+                </div>
+                <div class="electric-image">
+                    <img src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?auto=format&fit=crop&q=80&w=1000" alt="EV Charging">
+                    <div class="image-overlay-text">
+                        <div class="feature-icon" style="background: var(--primary-red); color: white;"><i class="fas fa-bolt"></i></div>
+                        <h3>Certificação BYD & Volvo</h3>
+                        <p>Técnicos especializados em alta tensão</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- STRUCTURE -->
+    <section class="structure" id="estrutura">
+        <div class="container">
+            <div class="structure-grid">
+                <div class="structure-images">
+                    <img src="https://images.unsplash.com/photo-1542282088-fe8426682b8f?auto=format&fit=crop&q=80&w=1000" alt="Porsche workshop">
+                    <img src="https://images.unsplash.com/photo-1625047509168-a7026f36de04?auto=format&fit=crop&q=80&w=500" alt="Engine work">
+                    <img src="https://images.unsplash.com/photo-1617462228925-518f329a5171?auto=format&fit=crop&q=80&w=500" alt="Tire service">
+                </div>
+                <div class="structure-content">
+                    <span style="color: var(--primary-red); font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;"><i class="fas fa-building"></i> GRANDE FLORIANÓPOLIS</span>
+                    <h2 style="font-size: 3rem; margin-top: 10px;">A Maior Estrutura da Região</h2>
+                    <p style="color: var(--text-gray); margin-top: 20px;">Localizada estrategicamente em São José, nossa oficina conta com mais de 1.500m² de área técnica, elevadores de última geração e sala de espera VIP para seu conforto.</p>
+                    <ul class="structure-list">
+                        <li><i class="fas fa-check-circle"></i> 15+ Elevadores Hidráulicos</li>
+                        <li><i class="fas fa-check-circle"></i> Laboratório de Eletrônica</li>
+                        <li><i class="fas fa-check-circle"></i> Estética Automotiva Premium</li>
+                        <li><i class="fas fa-check-circle"></i> Sala VIP com Café Gourmet</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials" id="depoimentos">
+        <div class="container">
+            <div class="section-header">
+                <h2>O que dizem nossos <span>Clientes</span></h2>
+                <div class="stars">
+                    <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+                </div>
+                <p class="rating-text">4.9/5 estrelas no Google Business</p>
+            </div>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <i class="fas fa-star quote"></i>
+                    <p class="testimonial-text">"Melhor oficina premium da região. Transparência total no orçamento e entrega no prazo."</p>
+                    <div class="author-info">
+                        <h4>Ricardo Silva</h4>
+                        <p>BMW 320I</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-star quote"></i>
+                    <p class="testimonial-text">"Finalmente uma oficina que entende de carros elétricos em Floripa. Atendimento nota 10."</p>
+                    <div class="author-info">
+                        <h4>Mariana Costa</h4>
+                        <p>VOLVO XC40 RECHARGE</p>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <i class="fas fa-star quote"></i>
+                    <p class="testimonial-text">"Estrutura impecável. O diagnóstico foi preciso e resolveu um problema que ninguém achava."</p>
+                    <div class="author-info">
+                        <h4>João Pedro</h4>
+                        <p>AUDI Q5</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-left">
+                    <h2 style="font-size: 3rem;">Venha nos <span>Visitar</span></h2>
+                    <p style="color: var(--text-gray); margin-top: 20px;">Estamos localizados no coração de Campinas, São José. Uma estrutura preparada para receber você e seu veículo com todo o conforto.</p>
+                    
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-map-marker-alt"></i></div>
+                            <div>
+                                <h5>Endereço</h5>
+                                <p>R. Victor Meirelles, 258 - Campinas, São José - SC</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon"><i class="fas fa-phone-alt"></i></div>
+                            <div>
+                                <h5>Telefone</h5>
+                                <p>(48) 3241-8193</p>
+                            </div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="icon"><i class="fab fa-whatsapp"></i></div>
+                            <div>
+                                <h5>WhatsApp</h5>
+                                <p>(48) 99999-9999</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-outline" style="margin-top: 40px; background: white; color: black; font-weight: 800;">Abrir no Google Maps <i class="fas fa-arrow-right"></i></button>
+                </div>
+                <div class="map-container">
+                    <!-- Embed Google Maps -->
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3535.59012345!2d-48.608!3d-27.595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjfCsDM1JzQyLjAiUyA0OMKwMzYnMjguOCJX!5e0!3m2!1spt-BR!2sbr!4v123456789" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <a href="#" class="whatsapp-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <script>
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header scroll effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(15, 19, 40, 0.95)';
+                header.style.padding = '15px 0';
+            } else {
+                header.style.background = 'rgba(15, 19, 40, 0.8)';
+                header.style.padding = '20px 0';
+            }
+        });
+    </script>
+</body>
+</html>
